@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PostActivity">
+
+    <ScrollView
+        android:background="@color/white"
+        android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottom_bar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/product_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="430dp"
+                    android:layout_marginBottom="5dp"
+                    android:scaleType="centerCrop"/>
+
+                <ImageButton
+                    android:id="@+id/img_back_btn_post"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/new_back"
+                    android:background="@android:color/transparent"
+                    app:layout_constraintTop_toTopOf="@id/product_image"
+                    app:layout_constraintStart_toStartOf="@id/product_image"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:orientation="horizontal"
+                    android:background="@drawable/line_bottom"
+                    >
+
+                    <TextView
+                        android:id="@+id/status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:text="상태"
+                        android:textSize="28sp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="9dp"
+                        android:layout_marginStart="10dp"
+                        android:textColor="@color/my_whiteGray"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="8dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="-1dp"
+                        android:background="@drawable/line_left"
+                        android:layout_marginStart="7dp"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/post_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="7dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:textStyle="bold"
+                        android:text="제목"
+                        android:textSize="26sp" />
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/title2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="カテゴリー"
+                    android:textSize="30dp"
+                    android:layout_marginStart="22dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_gravity="left"
+                    android:textStyle="bold"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginStart="22dp">
+                    <TextView
+                        android:id="@+id/post_category"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="カテゴリー"
+                        android:textSize="13dp"
+                        android:textColor="@color/my_whiteGray"
+                        android:layout_gravity="left"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" ・ "
+                        android:textColor="@color/my_whiteGray"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ビュー数  "
+                        android:textSize="11dp"
+                        android:textColor="@color/my_whiteGray"/>
+
+                    <TextView
+                        android:id="@+id/post_viewCnt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="数"
+                        android:textSize="13dp"
+                        android:layout_marginTop="0dp"
+                        android:textColor="@color/my_whiteGray"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" ・ "
+                        android:textColor="@color/my_whiteGray"/>
+                    <TextView
+                        android:id="@+id/post_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="時間"
+                        android:textSize="11dp"
+                        android:textColor="@color/my_whiteGray" />
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/description"
+                    android:layout_width="366dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="23dp"
+                    android:text="내용"
+                    android:textSize="24dp"
+                    android:maxLength="2000"
+                    android:layout_marginLeft="22dp"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@drawable/line_top"
+        android:id="@+id/bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_alignParentBottom="true">
+
+        <ImageButton
+            android:id="@+id/isLikeBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="13dp"
+            android:backgroundTint="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/price_tag"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/empty_heart" />
+
+        <TextView
+            android:layout_width="7dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/line_right"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/isLikeBtn"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.666" />
+
+        <TextView
+            android:id="@+id/price_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="23dp"
+            android:layout_marginBottom="25dp"
+            android:text="가격"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/isLikeBtn"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.666" />
+
+        <ImageButton
+            android:id="@+id/chat_button"
+            android:layout_width="120dp"
+            android:layout_height="33dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/my_primary_btn_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/price_tag"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.533" />
+
+
+        <TextView
+            android:id="@+id/chat_button_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="チャットをする"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@id/chat_button"
+            app:layout_constraintEnd_toEndOf="@id/chat_button"
+            app:layout_constraintStart_toStartOf="@id/chat_button"
+            app:layout_constraintTop_toTopOf="@id/chat_button" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+</RelativeLayout>

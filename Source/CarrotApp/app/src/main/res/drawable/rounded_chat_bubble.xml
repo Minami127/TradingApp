@@ -1,0 +1,5 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/my_primary" /> <!-- 말풍선 색상 -->
+    <corners android:radius="16dp" /> <!-- 모서리 둥글게 처리 -->
+    <padding android:left="16dp" android:right="16dp" android:top="8dp" android:bottom="8dp"/> <!-- 패딩 설정 -->
+</shape>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ChatRoomActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/line_bottom"
+        android:padding="10dp"
+        android:id="@+id/chat_toolbar">
+
+        <TextView
+            android:id="@+id/chat_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="대화 상대"
+            android:textSize="22sp"
+            android:layout_centerVertical="true"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true" />
+        <ImageButton
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/back_icon"
+            android:layout_marginRight="10dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:layout_centerVertical="true"
+            android:id="@+id/chat_back_btn"/>
+
+    </RelativeLayout>
+
+
+    
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/chat_room_recylerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/chat_toolbar"
+        android:scrollbars="vertical"
+        android:layout_above="@id/bottom_layout"
+        android:paddingBottom="10dp"/>
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:padding="8dp"
+        android:id="@+id/bottom_layout">
+
+        <EditText
+            android:id="@+id/chat_send"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="メッセージを送信する"
+            android:layout_centerInParent="true"
+            android:layout_margin="10dp"
+            android:background="@drawable/edit_text_rounded_corner"
+            android:elevation="4dp"
+            android:padding="10dp"
+            android:layout_toLeftOf="@id/message_send_btn"/>
+
+        <ImageButton
+
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/icon_send"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:id="@+id/message_send_btn"
+            android:padding="8dp"
+            android:layout_marginStart="10dp"/>
+
+    </RelativeLayout>
+        
+
+   
+
+</RelativeLayout>
