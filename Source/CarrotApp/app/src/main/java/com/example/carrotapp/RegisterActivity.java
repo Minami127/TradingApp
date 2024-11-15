@@ -76,21 +76,21 @@ public class RegisterActivity extends AppCompatActivity {
 
 
                 if (email.isEmpty() || password.isEmpty() || nickname.isEmpty() || password2.isEmpty()){
-                    Toast.makeText(RegisterActivity.this,"항목을 모두 입력하세요",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this,"すべての項目を入力してください",Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 // 이메일 형식이 맞는지 체크
                 Pattern pattern = Patterns.EMAIL_ADDRESS;
                 if (pattern.matcher(email).matches() == false){
-                    Toast.makeText(RegisterActivity.this,"이메일 형식을 확인하세요",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this,"メールアドレスの形式を確認してください",Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 // 비밀번호 길이체크 8~24자리까지 허용
 
                 if(password.length() < 8 || password.length() >= 24){
-                    Toast.makeText(RegisterActivity.this,"비밀번호 길이를 확인하세요.",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this,"パスワードの長さを確認してください",Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -98,7 +98,7 @@ public class RegisterActivity extends AppCompatActivity {
                 // 비밀번호 2개가 일치하는지 확인
 
                 if(!password.equals(password2)){
-                    Toast.makeText(RegisterActivity.this,"비밀번호가 일치하지 않습니다.",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this,"パスワードが一致しません",Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -115,14 +115,16 @@ public class RegisterActivity extends AppCompatActivity {
                                             .addOnCompleteListener(emailTask -> {
                                                 dismissProgress();
                                                 if (emailTask.isSuccessful()) {
-                                                    Toast.makeText(RegisterActivity.this,
-                                                            "인증 이메일을 확인하세요.", Toast.LENGTH_SHORT).show();
-                                                    mAuth.signOut();
                                                     getNetworkData(nickname, email, password);
+                                                    Toast.makeText(RegisterActivity.this,
+                                                            "認証メールをご確認ください", Toast.LENGTH_SHORT).show();
+                                                    mAuth.signOut();
+                                                    Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
+                                                    startActivity(intent);
                                                     finish();
                                                 } else {
                                                     Toast.makeText(RegisterActivity.this,
-                                                            "인증 이메일 전송 실패", Toast.LENGTH_SHORT).show();
+                                                            "認証メール送信失敗", Toast.LENGTH_SHORT).show();
                                                 }
                                             });
                                 }
@@ -180,14 +182,13 @@ public class RegisterActivity extends AppCompatActivity {
 
 
                     Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
-                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                     startActivity(intent);
                     finish();
 
                 }
 
                 else if(response.code() == 400){
-                    Toast.makeText(RegisterActivity.this,"잘못된 이메일형식이거나 비밀번호길이가 맞지 않습니다.",Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(RegisterActivity.this,"間違ったメールアドレス形式、またはパスワードの長さが適切ではありません。",Toast.LENGTH_SHORT).show();
                     return;
                 }else if(response.code() == 500){
                     Toast.makeText(RegisterActivity.this,"DB 처리중에 문제가 있습니다.",Toast.LENGTH_SHORT).show();
@@ -216,7 +217,7 @@ public class RegisterActivity extends AppCompatActivity {
     public void onBackPressed() {
         if (System.currentTimeMillis() - time >= 2000) {
             time = System.currentTimeMillis();
-            Toast.makeText(getApplicationContext(), "한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "もう一度押すと終了します。", Toast.LENGTH_SHORT).show();
         } else {
             super.onBackPressed();
         }

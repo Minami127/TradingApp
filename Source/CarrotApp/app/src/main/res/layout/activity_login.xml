@@ -17,7 +17,7 @@
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/miku" />
+        android:src="@drawable/app_icon_remove" />
 
     <LinearLayout
         android:layout_width="match_parent"

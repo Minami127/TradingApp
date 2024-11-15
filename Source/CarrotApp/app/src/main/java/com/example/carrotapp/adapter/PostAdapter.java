@@ -28,6 +28,8 @@ import com.example.carrotapp.model.Post;
 import java.text.NumberFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -72,8 +74,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     private String getRelativeTime(String inputDateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime inputTime = LocalDateTime.parse(inputDateTime, formatter);
-        LocalDateTime now = LocalDateTime.now();
-        Duration duration = Duration.between(inputTime, now);
+        ZonedDateTime utcTime = inputTime.atZone(ZoneId.of("UTC"));
+        ZonedDateTime tokyoTime = utcTime.withZoneSameInstant(ZoneId.of("Asia/Tokyo"));
+        ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Asia/Tokyo"));
+
+        Duration duration = Duration.between(tokyoTime, now);
         long seconds = duration.getSeconds();
         long minutes = duration.toMinutes();
         long hours = duration.toHours();

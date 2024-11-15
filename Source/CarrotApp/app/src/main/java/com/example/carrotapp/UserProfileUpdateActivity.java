@@ -61,6 +61,7 @@ public class UserProfileUpdateActivity extends AppCompatActivity {
     int id;
     ActivityResultLauncher<Intent> galleryLauncher;
     String profileImgUrl;
+    String userImg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +83,8 @@ public class UserProfileUpdateActivity extends AppCompatActivity {
         profileImgUrl = sp.getString("profileImg", null);
         nickname = sp.getString("nickname", null);
         String userId = sp.getString("userId", null);
+        userImg = sp.getString("profileImg", null);
+
         id = Integer.parseInt(userId);
         Log.d("qaz", "저장된 프로필 이미지 URL: " + profileImgUrl);
         Log.d("qaz", "저장된 닉네임 " + nickname);
@@ -95,7 +98,6 @@ public class UserProfileUpdateActivity extends AppCompatActivity {
                     if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
                         Intent data = result.getData();
 
-                        // 하나의 이미지 선택하는 경우
                         if (data.getData() != null) {
                             Uri imageUri = data.getData();
 
@@ -116,6 +118,7 @@ public class UserProfileUpdateActivity extends AppCompatActivity {
                 Glide.with(this)
                         .load(profileImgUrl)
                         .into(updateImg);
+
             } else {
                 Glide.with(this)
                         .load(R.drawable.person_gray)
@@ -124,6 +127,12 @@ public class UserProfileUpdateActivity extends AppCompatActivity {
         } else {
             Log.e("ProfileFragment", "Profile image view is null");
         }
+
+        updateImg.setOnClickListener(view -> {
+            myPermission();
+        });
+
+        Log.d("pic", "onCreate: " + profileImgUrl);
 
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,12 +143,19 @@ public class UserProfileUpdateActivity extends AppCompatActivity {
 
         updateBtn.setOnClickListener(v -> {
             nickname = updateNickname.getText().toString().trim();
+            Log.d("pic", "onCreate: " + profileImgUrl);
             Log.d("qwer", "onCreate: " + nickname);
-            editNickname(id,nickname);
-            editProfileImg(id, profileImgUrl);
+
+            if (nickname != null && !nickname.isEmpty()) {
+                editNickname(id, nickname);
+            }
+
+            if (profileImgUrl != null && !profileImgUrl.equals(userImg)) {
+                editProfileImg(id, profileImgUrl);
+            }
             getUserInfo(id);
+            finish();
         });
-        updateImg.setOnClickListener(view -> myPermission());
 
     }
 
@@ -153,15 +169,13 @@ public class UserProfileUpdateActivity extends AppCompatActivity {
 
         UserApi api = retrofit.create(UserApi.class);
 
-
-
         Call<UserRes> call = api.EditProfileNickname(id,"Bearer " + token,user);
 
         call.enqueue(new Callback<UserRes>() {
             @Override
             public void onResponse(Call<UserRes> call, Response<UserRes> response) {
                 if (response.isSuccessful()){
-                    Log.d("qwqrt", "success: " + response.body());
+                    Log.d("qwqrt", "success name: " + response.body());
 
                 } else {
                     Log.d("qwqrt", "fail: " + response.code() +"  "+ response.message());

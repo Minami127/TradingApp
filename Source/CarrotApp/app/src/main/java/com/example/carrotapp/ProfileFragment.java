@@ -103,6 +103,11 @@ public class ProfileFragment extends Fragment {
 
         adapter = new MyPostListAdapter(getContext(), postingArrayList);
         recyclerView.setAdapter(adapter);
+        SharedPreferences sp = getActivity().getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
+        String userId = sp.getString("userId", null);
+        id = Integer.parseInt(userId);
+
+        getUserInfo(id);
 
 
         getNetworkData();
@@ -110,18 +115,17 @@ public class ProfileFragment extends Fragment {
 
         profileOption.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-            builder.setTitle("옵션 선택")
-                    .setItems(new String[]{"수정", "로그아웃"}, (dialog, which) -> {
-                        switch (which) {
-                            case 0:
-                                Intent intent = new Intent(getActivity(), UserProfileUpdateActivity.class);
-                                startActivity(intent);
-                                break;
-                            case 1:
-                                showAlertDialog();
-                                break;
-                        }
-                    });
+            builder.setItems(new String[]{"編集", "ログアウト"}, (dialog, which) -> {
+                switch (which) {
+                    case 0:
+                        Intent intent = new Intent(getActivity(), UserProfileUpdateActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 1:
+                        showAlertDialog();
+                        break;
+                }
+            });
             builder.show();
         });
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -149,14 +153,12 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        // 프래그먼트 시작 시 주기적인 새로고침 시작
         handler.post(refreshRunnable);
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        // 프래그먼트가 멈추면 주기적인 새로고침을 중단
         handler.removeCallbacks(refreshRunnable);
     }
 
@@ -192,13 +194,13 @@ public class ProfileFragment extends Fragment {
                             }
                         });
 
-                        // 좋아요 데이터 요청
-                        getLikesData(); // 좋아요 개수 요청
+
 
                         // 어댑터에 데이터 변경 알림
                         adapter.notifyDataSetChanged();
                         if(count > 0){
                             hideEmptyView();
+                            getLikesData();
                         } else if(count == 0) {
                             showEmptyView();
                         }
@@ -302,6 +304,8 @@ public class ProfileFragment extends Fragment {
 
                         post.setLikeCnt(likeCnt);
                         adapter.notifyDataSetChanged();
+                    } else {
+
                     }
                 }
 
@@ -315,26 +319,26 @@ public class ProfileFragment extends Fragment {
 
     private void showAlertDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        // 이 다이얼로그의 외곽부분을 눌렀을 때, 사라지지 않도록 하는 코드.
-        builder.setCancelable(false);
-        builder.setMessage("정말 로그아웃 하시겠습니까?");
 
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        builder.setCancelable(false);
+        builder.setMessage("本当にログアウトしますか？");
+
+        builder.setPositiveButton("はい", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int i) {
                 onDestroyLogout();
             }
         });
 
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("いいえ", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int i) {
-                // 아무 작업도 하지 않음
+
             }
         });
         AlertDialog dialog = builder.create();
         dialog.show();
-        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK); // 예시로 검은색 텍스트
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK);
         dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK);
 
     }

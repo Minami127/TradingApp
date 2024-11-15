@@ -24,14 +24,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="내 물건 팔기"
+            android:text="自分の物を売る"
             android:textSize="15sp"
             android:textStyle="bold"
             android:layout_marginStart="160dp"
             android:layout_gravity="center"
             android:gravity="center" />
 
-        <Button
+        <ImageButton
             android:id="@+id/cancel_btn"
             android:layout_width="32dp"
             android:layout_height="32dp"
@@ -88,7 +88,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="카테고리"
+                android:text="カテゴリー"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
@@ -97,12 +97,13 @@
                 android:layout_width="250dp"
                 android:layout_height="35dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginBottom="10dp" />
+                android:layout_marginBottom="10dp"
+                android:autofillHints="選んでください"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="제목"
+                android:text="タイトル"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
@@ -113,7 +114,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/square_box_text"
-                android:hint="제목"
+                android:hint="タイトル"
                 android:inputType="text"
                 android:maxLength="50"
                 android:maxLines="1"
@@ -123,7 +124,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="가격"
+                android:text="価格"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
@@ -134,7 +135,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/square_box_text"
-                android:hint="가격"
+                android:hint="価格"
                 android:inputType="numberDecimal"
                 android:maxLength="50"
                 android:maxLines="1"
@@ -144,7 +145,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="내용"
+                android:text="説明"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
@@ -156,7 +157,7 @@
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/square_box_text"
                 android:gravity="top"
-                android:hint="제품의 대한 상세설명을 적어주세요"
+                android:hint="商品の詳細説明を入力してください"
                 android:maxHeight="500dp"
                 android:maxLength="2000"
                 android:minHeight="250dp"
@@ -166,7 +167,6 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- 하단 바 -->
     <LinearLayout
         android:id="@+id/bottom_bar"
         android:layout_width="match_parent"
@@ -181,7 +181,7 @@
             android:layout_height="45dp"
             android:layout_gravity="center"
             android:backgroundTint="@color/my_primary"
-            android:text="등록 완료"
+            android:text="登録完了"
             android:textStyle="bold" />
     </LinearLayout>
 

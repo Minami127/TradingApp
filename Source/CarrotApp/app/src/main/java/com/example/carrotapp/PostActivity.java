@@ -41,6 +41,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -97,6 +98,7 @@ public class PostActivity extends AppCompatActivity {
 
         ChatFragment chatFragment = new ChatFragment();
         chatFragment.setArguments(bundle); // Fragment에 bundle 전달
+        
 
         getNetworkLikeList(product_id);
         getNetworkViewCntData(id);
@@ -455,14 +457,19 @@ public class PostActivity extends AppCompatActivity {
     public String formatTime(String createdAt) {
         try {
             SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
+            inputFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
             Date date = inputFormat.parse(createdAt);
 
-            // 현재 시간과 비교
-            long diffInMillis = System.currentTimeMillis() - date.getTime();
-            long diffInMinutes = diffInMillis / (60 * 1000); // 분 단위로 차이 계산
-            long diffInHours = diffInMinutes / 60; // 시간 단위로 차이 계산
+            SimpleDateFormat outputFormatForConversion = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault());
+            outputFormatForConversion.setTimeZone(TimeZone.getTimeZone("Asia/Tokyo"));
+            String convertedDateStr = outputFormatForConversion.format(date);
+            Date convertedDate = outputFormatForConversion.parse(convertedDateStr);
 
-            // 24시간 이내라면 "XX분 전" 또는 "XX시간 전" 형식으로 출력
+            long diffInMillis = System.currentTimeMillis() - convertedDate.getTime();
+            long diffInMinutes = diffInMillis / (60 * 1000);
+            long diffInHours = diffInMinutes / 60;
+
+
             if (diffInHours < 24) {
                 if (diffInHours < 1) {
                     return diffInMinutes + "分前";
@@ -470,14 +477,16 @@ public class PostActivity extends AppCompatActivity {
                     return diffInHours + " 時間前";
                 }
             } else {
-                // 24시간 이상이면 날짜 형식으로 반환
                 SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy年-MM月-dd日", Locale.getDefault());
-                return outputFormat.format(date);
+                outputFormat.setTimeZone(TimeZone.getTimeZone("Asia/Tokyo"));
+                return outputFormat.format(convertedDate);
             }
         } catch (Exception e) {
             e.printStackTrace();
             return createdAt;
         }
     }
+
+
 
 }

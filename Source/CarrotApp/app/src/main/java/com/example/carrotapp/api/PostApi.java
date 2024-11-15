@@ -48,7 +48,7 @@ public interface PostApi {
     @GET("/viewCnt/{id}")
     Call<PostDetail> getViewCnt(@Path("id") int id, @Header("Authorization") String token);
 
-    @GET("/mylist")
+    @GET("/post/mylist")
     Call<PostList> getMyPostList(@Header("Authorization") String token,
                                    @Query("offset") int offset,
                                    @Query("limit") int limit);

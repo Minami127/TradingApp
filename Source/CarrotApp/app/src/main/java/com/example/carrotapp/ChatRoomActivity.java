@@ -113,9 +113,9 @@ public class ChatRoomActivity extends AppCompatActivity {
         refreshRunnable = new Runnable() {
             @Override
             public void run() {
+                chatMessages.clear();
                 loadChatMessages(currentChatRoomId);
-                adapter.notifyDataSetChanged();
-                handler.postDelayed(this, 5000);
+                handler.postDelayed(this, 3000);
             }
         };
 
@@ -143,16 +143,16 @@ public class ChatRoomActivity extends AppCompatActivity {
         chatRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                // 메시지가 이미 리스트에 있는지 확인
+                chatMessages.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     ChatMessage message = snapshot.getValue(ChatMessage.class);
                     if (message != null && !chatMessages.contains(message)) {
                         chatMessages.add(message);
                     }
                 }
-//                adapter.notifyDataSetChanged();
+                adapter.notifyDataSetChanged();
                 adapter.notifyItemInserted(chatMessages.size() - 1);
-                recyclerView.post(() -> recyclerView.scrollToPosition(chatMessages.size() - 1));
+//                recyclerView.post(() -> recyclerView.scrollToPosition(chatMessages.size() - 1));
 //                adapter.notifyItemInserted(chatMessages.size() - 1);
 //                recyclerView.scrollToPosition(chatMessages.size() - 1);
             }

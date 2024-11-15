@@ -373,7 +373,7 @@ class SearchTitleResource(Resource):
             connection = get_connection()
 
             query = '''SELECT p.id, p.seller_id, p.category_id, p.title, p.price, p.description, p.product_state, 
-                       c.name AS category_name, i.product_image_url, p.created_at, p.updated_at, 
+                       c.name AS name, i.product_image_url, p.created_at, p.updated_at, 
                        MIN(i.id) AS img_id
                         FROM products p
                         LEFT JOIN 

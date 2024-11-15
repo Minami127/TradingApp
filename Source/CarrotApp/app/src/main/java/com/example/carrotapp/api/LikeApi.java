@@ -26,7 +26,7 @@ public interface LikeApi {
     Call<LikeList> getLikeList(@Header("Authorization") String token,@Path("product_id") int product_id);
 
     //찜 상태
-    @POST("/likestatus")
+    @POST("/like/status")
     Call<Like> getLikeStatus(@Header("Authorization") String token, @Body Like like1);
 
 }

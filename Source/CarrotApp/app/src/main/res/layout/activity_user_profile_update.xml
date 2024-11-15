@@ -44,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:text="ニックネーム" />
+            android:text="現在のニックネーム" />
 
         <TextView
             android:id="@+id/update_nickname_view"
@@ -65,7 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:text="ニックネーム" />
+            android:text="新しいニックネーム" />
 
         <EditText
             android:id="@+id/update_nickname"

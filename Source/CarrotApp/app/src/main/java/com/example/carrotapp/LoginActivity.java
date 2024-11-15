@@ -105,14 +105,14 @@ import retrofit2.Retrofit;
                 String password = login_password.getText().toString().trim();
 
                 if (email.isEmpty() || password.isEmpty()){
-                    Toast.makeText(LoginActivity.this,"항목을 모두 입력하세요",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this,"すべての項目を入力してください",Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 // 이메일 형식 체크
                 Pattern pattern = Patterns.EMAIL_ADDRESS;
                 if (!pattern.matcher(email).matches()){
-                    Toast.makeText(LoginActivity.this,"이메일 형식을 확인하세요",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this,"メールアドレスの形式を確認してください",Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -164,19 +164,17 @@ import retrofit2.Retrofit;
                                         @Override
                                         public void onFailure(Call<UserRes> call, Throwable t) {
                                             dismissProgress();
-                                            Toast.makeText(LoginActivity.this, "네트워크 오류: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(LoginActivity.this, "ネットワークエラー: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                                         }
                                     });
                                 } else {
-                                    // 이메일 인증 안된 경우
-                                    Toast.makeText(LoginActivity.this, "이메일 인증 후 다시 로그인해주세요.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(LoginActivity.this, "メール認証後に再度ログインしてください。", Toast.LENGTH_SHORT).show();
                                     if (firebaseUser != null) {
-                                        // 인증 이메일 다시 보내기
                                         firebaseUser.sendEmailVerification().addOnCompleteListener(task1 -> {
                                             if (task1.isSuccessful()) {
-                                                Toast.makeText(LoginActivity.this, "인증 이메일이 전송되었습니다.", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(LoginActivity.this, "認証メールが送信されました。", Toast.LENGTH_SHORT).show();
                                             } else {
-                                                Toast.makeText(LoginActivity.this, "인증 이메일 전송 실패", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(LoginActivity.this, "認証メール送信失敗", Toast.LENGTH_SHORT).show();
                                             }
                                         });
                                     }
@@ -205,7 +203,7 @@ import retrofit2.Retrofit;
     private void handleLoginError(int responseCode) {
         switch (responseCode) {
             case 400:
-                Toast.makeText(LoginActivity.this, "회원가입이 되지 않은 이메일이거나, 비밀번호가 틀립니다.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "会員登録されていないメールアドレス、またはパスワードが間違っています", Toast.LENGTH_SHORT).show();
                 break;
             case 500:
                 Toast.makeText(LoginActivity.this, "DB 처리중에 문제가 있습니다.", Toast.LENGTH_SHORT).show();
@@ -354,7 +352,7 @@ import retrofit2.Retrofit;
 
         } catch (ApiException e) {
             Log.w("LoginActivity", "Google sign in failed", e);
-            Toast.makeText(this, "로그인 실패", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "ログイン失敗", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -378,7 +376,7 @@ import retrofit2.Retrofit;
 
                     } else {
                         // 로그인 실패
-                        Toast.makeText(LoginActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "ログイン失敗", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -438,7 +436,7 @@ import retrofit2.Retrofit;
     public void onBackPressed() {
         if (System.currentTimeMillis() - time >= 2000) {
             time = System.currentTimeMillis();
-            Toast.makeText(getApplicationContext(), "한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "もう一度押すと終了します", Toast.LENGTH_SHORT).show();
         } else {
             super.onBackPressed();
         }

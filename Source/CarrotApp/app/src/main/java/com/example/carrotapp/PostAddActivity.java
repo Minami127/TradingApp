@@ -86,8 +86,8 @@ public class PostAddActivity extends AppCompatActivity {
 
     TextView picNum;
     EditText postTitle, postPrice, postDescribe;
-    Button postAddBtn,cancelBtn;
-    ImageButton imgAdd;
+    Button postAddBtn;
+    ImageButton imgAdd,cancelBtn;
     Spinner categorySpinner;
     RecyclerView imgRecyclerView;
     ScrollView scrollView;
@@ -340,7 +340,6 @@ public class PostAddActivity extends AppCompatActivity {
                     Log.d("asdf", "onResponse: "+categoryList.items);
                     List<Category> categories = categoryList.items;
                     List<String> categoryNames = new ArrayList<>();
-                    categoryNames.add("선택하세요"); // 기본 선택 항목 추가
 
                     for (Category category : categories) {
                         categoryNames.add(category.getCategory());

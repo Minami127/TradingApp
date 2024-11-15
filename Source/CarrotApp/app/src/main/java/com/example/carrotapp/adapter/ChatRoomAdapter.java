@@ -19,9 +19,11 @@ import com.example.carrotapp.R;
 import com.example.carrotapp.model.ChatRoom;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
 
 public class ChatRoomAdapter extends RecyclerView.Adapter<ChatRoomAdapter.ViewHolder> {
 
@@ -92,9 +94,26 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<ChatRoomAdapter.ViewHo
     }
 
     private String formatTimestamp(long timestamp) {
-        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a", Locale.getDefault());
-        return sdf.format(new Date(timestamp));
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Tokyo"));
+        calendar.setTimeInMillis(timestamp);
+        Date dateInTokyo = calendar.getTime();
+
+        Calendar nowCalendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Tokyo"));
+        long currentTime = nowCalendar.getTimeInMillis();
+
+
+        long diffInMillis = currentTime - dateInTokyo.getTime();
+        long diffInHours = diffInMillis / (60 * 60 * 1000);
+
+        if (diffInHours < 24) {
+            SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a", Locale.JAPAN);
+            timeFormat.setTimeZone(TimeZone.getTimeZone("Asia/Tokyo"));
+            return timeFormat.format(dateInTokyo);
+        } else {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.JAPAN);
+            dateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Tokyo"));
+            return dateFormat.format(dateInTokyo);
+        }
     }
-
-
+    
 }

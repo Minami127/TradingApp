@@ -67,9 +67,12 @@ public class ChatFragment extends Fragment {
         userId = Integer.parseInt(user);
 
 
+
+        chatRoomArrayList.clear();
         adapter = new ChatRoomAdapter(getContext(), chatRoomArrayList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
+
 
 
         loadChatRooms();
@@ -119,7 +122,7 @@ public class ChatFragment extends Fragment {
                 .child(chatRoom.getChatRoomId())
                 .child("messages");
         messageRef.orderByChild("timestamp")
-                .limitToLast(1)  // 가장 최신 메시지 하나만 가져옵니다.
+                .limitToLast(1)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

@@ -63,10 +63,12 @@
             android:background="@drawable/edit_text_rounded_corner"
             android:elevation="4dp"
             android:padding="10dp"
-            android:layout_toLeftOf="@id/message_send_btn"/>
+            android:layout_toLeftOf="@id/message_send_btn"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:ellipsize="end"/>
 
         <ImageButton
-
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:src="@drawable/icon_send"

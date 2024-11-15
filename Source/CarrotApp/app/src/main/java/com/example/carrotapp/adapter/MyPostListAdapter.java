@@ -7,10 +7,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -34,6 +37,8 @@ import com.example.carrotapp.model.Post;
 import java.text.NumberFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -83,8 +88,11 @@ public class MyPostListAdapter extends RecyclerView.Adapter<MyPostListAdapter.Vi
     private String getRelativeTime(String inputDateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime inputTime = LocalDateTime.parse(inputDateTime, formatter);
-        LocalDateTime now = LocalDateTime.now();
-        Duration duration = Duration.between(inputTime, now);
+        ZonedDateTime utcTime = inputTime.atZone(ZoneId.of("UTC"));
+        ZonedDateTime tokyoTime = utcTime.withZoneSameInstant(ZoneId.of("Asia/Tokyo"));
+        ZonedDateTime now = ZonedDateTime.now(ZoneId.of("Asia/Tokyo"));
+
+        Duration duration = Duration.between(tokyoTime, now);
         long seconds = duration.getSeconds();
         long minutes = duration.toMinutes();
         long hours = duration.toHours();
@@ -142,31 +150,38 @@ public class MyPostListAdapter extends RecyclerView.Adapter<MyPostListAdapter.Vi
         // Glide로 이미지 로드
         Glide.with(context)
                 .load(post.getProductImageUrl())
-                .placeholder(R.drawable.cuteboy)
-                .error(R.drawable.miku)
+                .placeholder(R.drawable.baseline_photo_24)
+                .error(R.drawable.baseline_photo_24)
                 .apply(RequestOptions.bitmapTransform(new RoundedCorners(32)))
                 .into(holder.thumbNail);
 
-        // 아이템 클릭 시 동작
         holder.cardView.setOnClickListener(view -> {
             Intent intent = new Intent(context, PostActivity.class);
-            intent.putExtra("post", post); // Post 객체 전달
+            intent.putExtra("post", post);
             context.startActivity(intent);
         });
 
         holder.imgBtn.setOnClickListener(view -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            builder.setTitle("");
+            builder.setTitle("削除確認");
             product_id = post.getId();
             builder.setMessage("この商品を本当に削除しますか？");
-            builder.setPositiveButton("はい", (dialog, which) -> {
-                DeletePost(product_id);
+            builder.setPositiveButton("はい", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int i) {
+                    DeletePost(product_id);
+                }
+            });
 
+            builder.setNegativeButton("いいえ", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int i) {
+                }
             });
-            builder.setNegativeButton("いいえ", (dialog, which) -> {
-                dialog.dismiss();
-            });
-            builder.show();
+            AlertDialog dialog = builder.create();
+            dialog.show();
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK);
+            dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK);
         });
 
         holder.option.setOnClickListener(v -> {

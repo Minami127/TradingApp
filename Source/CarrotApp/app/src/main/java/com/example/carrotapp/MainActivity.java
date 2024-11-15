@@ -68,7 +68,16 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sp = getSharedPreferences(Config.PREFERENCE_NAME, MODE_PRIVATE);
         String token = sp.getString("token", null);
         String userId = sp.getString("userId", null);
-        id = Integer.parseInt(userId);
+        if (userId != null) {
+            try {
+                id = Integer.parseInt(userId);
+            } catch (NumberFormatException e) {
+
+            }
+        } else {
+
+        }
+
         getUserInfo(id);
 
 

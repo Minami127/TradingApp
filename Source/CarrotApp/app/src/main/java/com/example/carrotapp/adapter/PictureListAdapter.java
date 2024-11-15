@@ -41,8 +41,8 @@ public class PictureListAdapter extends RecyclerView.Adapter<PictureListAdapter.
         // 이미지 URL을 Glide로 로드
         Glide.with(context)
                 .load(imageItem.getProductImageUrl())
-                .placeholder(R.drawable.miku) // 로딩 중 표시할 이미지
-                .error(R.drawable.miku) // 오류 발생 시 표시할 이미지
+                .placeholder(R.drawable.baseline_photo_24) // 로딩 중 표시할 이미지
+                .error(R.drawable.baseline_photo_24) // 오류 발생 시 표시할 이미지
                 .into(holder.imageView);
     }
 
